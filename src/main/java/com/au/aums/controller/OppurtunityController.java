@@ -87,7 +87,7 @@ public class OppurtunityController {
 	
 	@DeleteMapping(path = "/api/allowed/delete/")
 	public ResponseEntity<String>  deleteBy(@RequestBody Integer oppId) {
-		oppRepository.deleteById(oppRepository.findByOppId(oppId).getOppId());
+		oppService.deleteBy(oppId);
 		return new ResponseEntity<>("deleted", HttpStatus.OK);
 	}
 
