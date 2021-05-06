@@ -8,8 +8,8 @@ import com.au.aums.model.User;
 public interface UserService {
 	
 	
-	void addUser(User user);
+	Boolean checkUser(String email);
 	
-	Optional<User> getUser(int userId);
+	User getUser(String email);
 
 }

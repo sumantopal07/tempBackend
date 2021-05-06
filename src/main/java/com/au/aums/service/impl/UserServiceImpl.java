@@ -14,15 +14,19 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
     UserRepository userRepository;
-	
-	public void addUser(User user) {
-		 userRepository.save(user);
-		 return ;
+
+	@Override
+	public Boolean checkUser(String email) {
+		return (userRepository.findByEmail(email).size()==1);
 	}
 
 	@Override
-	public Optional<User> getUser(int keyword) {
-		return userRepository.findByUserId(keyword);
+	public User getUser(String email) {
+		return userRepository.findByEmail(email).get(0);
 	}
+	
+	
+
+	
 	
 }

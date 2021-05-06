@@ -21,7 +21,7 @@ import com.au.aums.controller.UserController;
 import com.au.aums.model.Topic;
 import com.au.aums.model.User;
 import com.au.aums.model.UserTopic;
-import com.au.aums.model.dto.UserSignupDTO;
+import com.au.aums.model.dto.CheckUserDTO;
 import com.au.aums.service.TopicService;
 import com.au.aums.service.UserService;
 import com.au.aums.service.UserTopicService;
@@ -69,7 +69,7 @@ class UserControllerTest {
 
 	@Test
 	void addUserTest() throws JsonProcessingException, Exception {
-		UserSignupDTO user= new UserSignupDTO();
+		CheckUserDTO user= new CheckUserDTO();
 		user.setSignupEmail("abc@gmail.com");
 		user.setSignupPassword("123");
 		user.setSignupPhoto("i.jpg");

@@ -2,7 +2,7 @@ package com.au.aums.model;
 
 
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,7 +31,8 @@ public class Oppurtunities {
 	private String date;
 	
 	
-	private int minExp,demand;
+	private int minExp;
+	private int demand;
 
 
 
@@ -39,19 +40,7 @@ public class Oppurtunities {
 	
 
 
-	public Oppurtunities(int oppId, User user, String location, String skill, String client, String description,
-			String date, int minExp, int demand) {
-		super();
-		this.oppId = oppId;
-		this.user = user;
-		this.location = location;
-		this.skill = skill;
-		this.client = client;
-		this.description = description;
-		this.date = date;
-		this.minExp = minExp;
-		this.demand = demand;
-	}
+	
 
 	public Oppurtunities() {
 		// TODO Auto-generated constructor stub
