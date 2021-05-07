@@ -16,10 +16,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import com.au.aums.enums.Role;
 import com.au.aums.model.Answer;
 import com.au.aums.model.Comment;
 import com.au.aums.model.Question;
-import com.au.aums.model.Role;
 import com.au.aums.model.Topic;
 import com.au.aums.model.User;
 import com.au.aums.model.dto.CommentDTO;

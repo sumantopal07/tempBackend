@@ -192,6 +192,15 @@ public class Oppurtunities {
 	}
 
 
+
+	@Override
+	public String toString() {
+		return "Oppurtunities [oppId=" + oppId + ", user=" + user + ", location=" + location + ", skill=" + skill
+				+ ", client=" + client + ", description=" + description + ", date=" + date + ", minExp=" + minExp
+				+ ", demand=" + demand + "]";
+	}
+
+
 	
 	
 	
