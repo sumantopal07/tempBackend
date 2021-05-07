@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// Apply JWT
 		http.apply(new JwtTokenFilterConfigurer(jwtTokenProviderService));
-
+		http.cors();
 		log.info("[EXIT] [WebSecurity] configure http security" + http);
 	}
 

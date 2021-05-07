@@ -33,6 +33,7 @@ public class OppurtunityController {
 	@Autowired
 	OppurtunityRepository oppRepository;
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(path = "/api/restriction/getOppurtunities")
 	public ResponseEntity<List<Oppurtunities>> getOppurtunities() {
 		System.out.println("gsfgfsgfs");
@@ -81,6 +82,7 @@ public class OppurtunityController {
 
 	}
 
+	
 	@GetMapping(path = "/api/restriction/search/{col}/{place}")
 	public ResponseEntity<List<Oppurtunities>> searchBy(@PathVariable("col") String col,
 			@PathVariable("place") String place) {
