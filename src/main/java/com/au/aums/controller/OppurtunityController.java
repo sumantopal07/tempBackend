@@ -3,6 +3,7 @@ package com.au.aums.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.au.aums.App;
 import com.au.aums.dao.OppurtunityRepository;
 import com.au.aums.model.Oppurtunities;
 import com.au.aums.model.dto.OppurtunityDTO;
@@ -30,21 +32,19 @@ public class OppurtunityController {
 	@Autowired
 	UserService userService;
 
-	@Autowired
-	OppurtunityRepository oppRepository;
+	
 
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(path = "/api/restriction/getOppurtunities")
 	public ResponseEntity<List<Oppurtunities>> getOppurtunities() {
-		System.out.println("gsfgfsgfs");
+
 
 		List<Oppurtunities> result = null;
 		result = oppService.getAll();
-		for(int i=0;i<result.size();i++)
+		for (int i = 0; i < result.size(); i++)
 			System.out.print(result);
 		if (result.size() > 0)
 			return new ResponseEntity<>(result, HttpStatus.OK);
-		return new ResponseEntity<>(result, HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS);
+		return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
 	}
 
 	@PostMapping(path = "/api/restriction/addOppurtunity")
@@ -82,15 +82,7 @@ public class OppurtunityController {
 
 	}
 
-	
-	@GetMapping(path = "/api/restriction/search/{col}/{place}")
-	public ResponseEntity<List<Oppurtunities>> searchBy(@PathVariable("col") String col,
-			@PathVariable("place") String place) {
-		List<Oppurtunities> result = null;
-		result = oppService.searchBy(col, place);
-		return new ResponseEntity<>(result, HttpStatus.OK);
 
-	}
 
 	@DeleteMapping(path = "/api/restriction/delete/{oppId}")
 	public ResponseEntity<?> deleteBy(@PathVariable("oppId") Integer oppId) {
