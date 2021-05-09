@@ -17,9 +17,7 @@ import com.au.aums.model.dto.SkillDTO;
 
 @Repository
 public interface OppurtunityRepository extends JpaRepository<Oppurtunities,Integer>{
-	List<Oppurtunities> findByClient(String keyword);
-	List<Oppurtunities> findBySkill(String keyword);
-	List<Oppurtunities> findByLocation(String keyword);
+	
 	
 	Oppurtunities findByOppId(int keyword);
 	

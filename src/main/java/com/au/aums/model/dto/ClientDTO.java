@@ -20,5 +20,8 @@ public class ClientDTO {
 		this.client = client;
 		this.total = total;
 	}
+	public ClientDTO() {
+		
+	}
     
 }

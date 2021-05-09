@@ -20,11 +20,11 @@ public class SkillDTO {
 		this.skill = skill;
 		this.total = total;
 	}
-	@Override
-	public String toString() {
-		return "SkillDTO [skill=" + skill + ", total=" + total + "]";
-	}
+	
 
+	public SkillDTO() {
+		
+	}
     
 
 }

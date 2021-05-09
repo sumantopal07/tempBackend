@@ -3,6 +3,8 @@ package com.au.aums.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,8 +16,10 @@ import com.au.aums.model.dto.SkillDTO;
 import com.au.aums.service.TrendService;
 
 
+@Component
 @Service
 @Transactional
+@Repository
 public class TrendServiceImpl implements TrendService {
 
 	@Autowired

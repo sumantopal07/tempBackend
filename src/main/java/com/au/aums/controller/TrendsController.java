@@ -14,6 +14,7 @@ import com.au.aums.model.dto.DescriptionDTO;
 import com.au.aums.model.dto.LocationDTO;
 import com.au.aums.model.dto.SkillDTO;
 import com.au.aums.service.TrendService;
+import com.au.aums.service.impl.TrendServiceImpl;
 
 @RestController
 public class TrendsController {

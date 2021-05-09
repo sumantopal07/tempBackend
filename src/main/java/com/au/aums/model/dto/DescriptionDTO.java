@@ -20,5 +20,7 @@ public class DescriptionDTO {
 		this.description = description;
 		this.total = total;
 	}
-    
+public DescriptionDTO() {
+		
+	}
 }

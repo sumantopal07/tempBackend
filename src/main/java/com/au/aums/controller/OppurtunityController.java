@@ -49,36 +49,14 @@ public class OppurtunityController {
 
 	@PostMapping(path = "/api/restriction/addOppurtunity")
 	public ResponseEntity<Oppurtunities> addOppurtunity(@RequestBody OppurtunityDTO oppDTO) {
-
-		Oppurtunities opp = new Oppurtunities();
-
-		opp.setClient(oppDTO.getClient());
-		opp.setDate(oppDTO.getDate());
-		opp.setDemand(oppDTO.getDemand());
-		opp.setUser(userService.getUser(oppDTO.getEmail()));
-		opp.setDescription(oppDTO.getDescription());
-		opp.setLocation(oppDTO.getLocation());
-		opp.setMinExp(oppDTO.getMinExp());
-		opp.setSkill(oppDTO.getSkill());
-
-		return new ResponseEntity<>(oppService.addOppurtunity(opp), HttpStatus.OK);
+		
+		return new ResponseEntity<>(oppService.addOppurtunity(oppDTO), HttpStatus.OK);
 
 	}
 
 	@PutMapping(path = "/api/restriction/updateOppurtunity")
 	public ResponseEntity<Oppurtunities> updateOppurtunity(@RequestBody OppurtunityDTO oppDTO) {
-
-		Oppurtunities opp = oppService.getOppurtunity(oppDTO.getId());
-		opp.setClient(oppDTO.getClient());
-		opp.setDate(oppDTO.getDate());
-		opp.setDemand(oppDTO.getDemand());
-		opp.setUser(userService.getUser(oppDTO.getEmail()));
-		opp.setDescription(oppDTO.getDescription());
-		opp.setLocation(oppDTO.getLocation());
-		opp.setMinExp(oppDTO.getMinExp());
-		opp.setSkill(oppDTO.getSkill());
-
-		return new ResponseEntity<>(oppService.addOppurtunity(opp), HttpStatus.OK);
+		return new ResponseEntity<>(oppService.updateOppurtunity(oppDTO), HttpStatus.OK);
 
 	}
 

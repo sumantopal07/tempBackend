@@ -4,11 +4,12 @@ package com.au.aums.security;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 
 import com.au.aums.enums.Role;
 
 
-
+@Component
 public interface IJwtTokenProviderService {
     String createToken(String username, Role role);
     Authentication validateUserAndGetAuthentication(String token);

@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.au.aums.dao.OppurtunityRepository;
 import com.au.aums.model.Oppurtunities;
+import com.au.aums.model.dto.OppurtunityDTO;
 import com.au.aums.service.OppurtunityService;
+import com.au.aums.service.UserService;
 
 @Service
 @Transactional
@@ -17,23 +19,38 @@ public class OppurtunityServiceImpl implements OppurtunityService {
 
 	@Autowired
 	OppurtunityRepository oppRepository;
+	
+	@Autowired
+	UserService userService;
 
 	@Override
-	public Oppurtunities addOppurtunity(Oppurtunities opp) {
+	public Oppurtunities addOppurtunity(OppurtunityDTO oppDTO) {
+		Oppurtunities opp = new Oppurtunities();
+
+		opp.setClient(oppDTO.getClient());
+		opp.setDate(oppDTO.getDate());
+		opp.setDemand(oppDTO.getDemand());
+		opp.setUser(userService.getUser(oppDTO.getEmail()));
+		opp.setDescription(oppDTO.getDescription());
+		opp.setLocation(oppDTO.getLocation());
+		opp.setMinExp(oppDTO.getMinExp());
+		opp.setSkill(oppDTO.getSkill());
+		return oppRepository.save(opp);
+	}
+	@Override
+	public Oppurtunities updateOppurtunity(OppurtunityDTO oppDTO) {
+		Oppurtunities opp = getOppurtunity(oppDTO.getId());
+		opp.setClient(oppDTO.getClient());
+		opp.setDate(oppDTO.getDate());
+		opp.setDemand(oppDTO.getDemand());
+		opp.setUser(userService.getUser(oppDTO.getEmail()));
+		opp.setDescription(oppDTO.getDescription());
+		opp.setLocation(oppDTO.getLocation());
+		opp.setMinExp(oppDTO.getMinExp());
+		opp.setSkill(oppDTO.getSkill());
 		return oppRepository.save(opp);
 	}
 
-	@Override
-	public List<Oppurtunities> searchBy(String col, String keyword) {
-		List<Oppurtunities> list = new ArrayList<>();
-		if (col.equals("client"))
-			list = oppRepository.findByClient(keyword);
-		if (col.equals("location"))
-			list = oppRepository.findByLocation(keyword);
-		if (col.equals("skills"))
-			list = oppRepository.findBySkill(keyword);
-		return list;
-	}
 
 	@Override
 	public List<Oppurtunities> getAll() {
@@ -46,9 +63,9 @@ public class OppurtunityServiceImpl implements OppurtunityService {
 	}
 
 	@Override
-	public void deleteBy(Integer keyword) {
+	public String deleteBy(Integer keyword) {
 		oppRepository.deleteById(oppRepository.findByOppId(keyword).getOppId());
-		return ;
+		return "Success";
 	}
 
 }

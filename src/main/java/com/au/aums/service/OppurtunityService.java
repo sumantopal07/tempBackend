@@ -4,14 +4,14 @@ package com.au.aums.service;
 import java.util.List;
 
 import com.au.aums.model.Oppurtunities;
-import com.au.aums.model.User;
+import com.au.aums.model.dto.OppurtunityDTO;
 
 public interface OppurtunityService {
 	
 	
-	Oppurtunities addOppurtunity(Oppurtunities opp);
-	List<Oppurtunities> searchBy(String col, String place);
+	Oppurtunities addOppurtunity(OppurtunityDTO oppDTO);
+	Oppurtunities updateOppurtunity(OppurtunityDTO oppDTO);
 	List<Oppurtunities> getAll();
 	Oppurtunities getOppurtunity(int keyword);
-	void deleteBy(Integer keyword);
+	String deleteBy(Integer keyword);
 }

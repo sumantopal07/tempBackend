@@ -20,4 +20,7 @@ public class LocationDTO {
 		this.total = total;
 	}
 	private Long total;
+	public LocationDTO() {
+		
+	}
 }

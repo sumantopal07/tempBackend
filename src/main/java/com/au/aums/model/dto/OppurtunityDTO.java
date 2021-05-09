@@ -122,7 +122,8 @@ public class OppurtunityDTO {
 	public void setDemand(int demand) {
 		this.demand = demand;
 	}
-
+	
+	
 	
 	
 	
