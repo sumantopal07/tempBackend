@@ -27,7 +27,7 @@ public class JwtTokenProviderService implements IJwtTokenProviderService {
 
 	@Value("${jwt.secret}")
     private String secretKey;
-
+ 
     private long validityInMilliseconds = 3600000; // 1h
     
     static Logger log = LoggerFactory.getLogger(JwtTokenProviderService.class);
@@ -46,11 +46,11 @@ public class JwtTokenProviderService implements IJwtTokenProviderService {
     	log.info("[ENTER] [JwtTokenProviderService] constructor"+myUserDetailsService.hashCode());
         this.myUserDetailsService = myUserDetailsService;
         log.info("[EXIT] [JwtTokenProviderService] constructor"+myUserDetailsService.hashCode());
-    }
+    } 
 
     @Override
     public String createToken(String userName, Role role) {
-    	log.info("[ENTER] [JwtTokenProviderService] createToken"+myUserDetailsService.hashCode());
+    	//log.info("[ENTER] [JwtTokenProviderService] createToken"+myUserDetailsService.hashCode());
         Claims claims = Jwts.claims().setSubject(userName);
         claims.put("auth", role);
 
@@ -88,7 +88,7 @@ public class JwtTokenProviderService implements IJwtTokenProviderService {
         
         return null;
     }
-
+ 
     @Override
     public boolean validateToken(String token){
     	log.info("[ENTER] [JwtTokenProviderService] validateToken"+token);

@@ -1,7 +1,11 @@
-package com.au.aums.services;
+package com.au.aums.controller;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -15,100 +19,86 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.au.aums.dao.OppurtunityRepository;
+import com.au.aums.dao.UserRepository;
 import com.au.aums.enums.Role;
 import com.au.aums.model.User;
 import com.au.aums.model.dto.LoginResponseDTO;
 import com.au.aums.model.dto.UserDTO;
 import com.au.aums.security.IJwtTokenProviderService;
-import com.au.aums.service.TrendService;
 import com.au.aums.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import static org.mockito.Mockito.when;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class XyzControllerTest {
+class UserControllerTest {
 	@Autowired
 	MockMvc mockMvc;
 
-	@MockBean
-	TrendService trendService;
 	
-	@MockBean
+	
+	@Autowired
 	UserService userService;
 	
 
 	@MockBean
 	IJwtTokenProviderService jwtTokenProviderService;
 	
+	@MockBean
+	UserRepository userRepository;
+	
 	
 	@Autowired
 	private ObjectMapper objectMapper;
-	
-//	@MockBean
-//	IJwtTokenProviderService ijwt;
 
 	String url = "/api/restriction/";
 
 	@MockBean
 	private OppurtunityRepository opp;
 
-	static Logger log = LoggerFactory.getLogger(TrendsServicesTest.class);
+	static Logger log = LoggerFactory.getLogger(UserControllerTest.class);
 
-//	@Before
-//	public void setUp() throws Exception {
-//		mockMvc = MockMvcBuilders.standaloneSetup(trendService).build();
-//	}
-
-//	@Test
-//	@DisplayName("dflnadflknadflknadflknadf")
-//	public void sdfsdf() throws Exception {
-////		SkillDTO skill1 = new SkillDTO();
-////		SkillDTO skill2 = new SkillDTO("React", 1l);
-////		skill1.setSkill("java");
-////		skill1.setTotal(2l);
-////
-////		List<SkillDTO> skills = new ArrayList<SkillDTO>();
-////		skills.add(skill1);
-////		skills.add(skill2);
-////
-////		log.info(skill2.getSkill());
-////		log.info(skill2.getTotal() + "");
-//
-//		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/allowed/login"))
-//				.andReturn();
-//		assertThat(result).isNotNull();
-//		System.out.println("==========================================");
-//
-//		System.out.println(MockMvcRequestBuilders.get("/api/allowed/login"));
-//		System.out.println(result);
-//		System.out.println(result.getResponse().getContentAsString());
-//		System.out.println("==========================================");
-//	}
-	
     @Test
-    public void testPost() throws Exception {
+    public void Success() throws Exception {
     	UserDTO user = new UserDTO();
     	user.setEmail("sumantopal07@gmail.com");
     	
     	User resUser = new User();
     	resUser.setEmail("sumantopal07@gmail.com");
     	resUser.setUserId(1);
+    	
+    	List<User> u = new ArrayList<User>();
+    	u.add(resUser);
 		
+    	when(jwtTokenProviderService.createToken(user.getEmail(), Role.ROLE_ADMIN)).thenReturn("hello");
+    	
     	LoginResponseDTO l = new LoginResponseDTO();
     	l.setAccessToken(jwtTokenProviderService.createToken(user.getEmail(), Role.ROLE_ADMIN));
 		l.setEmail(user.getEmail());
-		//when(userService.getUser("sumantopal07@gmail.com")).thenReturn(resUser);
+		when(userRepository.findByEmail("sumantopal07@gmail.com")).thenReturn(u);
 		
         mockMvc.perform(post("/api/allowed/login")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(user)))
-                .andExpect(status().isNotFound()).andReturn(); 
-//        MvcResult mvcResult = mockMvc.perform(
-//				post(url)
-//				.contentType("application/json")
-//				.content(objectMapper.writeValueAsString(user))
-//			).andExpect(status().isOk()).andReturn();
+                .andExpect(status().isOk()).andReturn(); 
+       
+
+    }
+    
+    
+    @Test
+    public void Failure() throws Exception {
+    	UserDTO user = new UserDTO();
+    	user.setEmail("fakeEmail@gmail.com");
+    	
+    	
+        List <User> emptyList= new ArrayList<User>();
+        
+        when(userRepository.findByEmail("fakeEmail@gmail.com")).thenReturn(null);
+        mockMvc.perform(post("/api/allowed/login")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(user)))
+                .andExpect(status().is4xxClientError()).andReturn(); 
+
     }
 
 	

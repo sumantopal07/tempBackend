@@ -76,7 +76,7 @@ public class OppurtunititesServicesTest {
 
 		List<User> LIST = new ArrayList<User>();
 		LIST.add(u);
-
+ 
 		when(oppRepository.findByOppId(1)).thenReturn(opp);
 		when(userRepository.findByEmail(oppDTO.getEmail())).thenReturn(LIST);
 

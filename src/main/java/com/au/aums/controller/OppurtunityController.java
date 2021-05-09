@@ -38,11 +38,8 @@ public class OppurtunityController {
 	public ResponseEntity<List<Oppurtunities>> getOppurtunities() {
 
 
-		List<Oppurtunities> result = null;
-		result = oppService.getAll();
-		for (int i = 0; i < result.size(); i++)
-			System.out.print(result);
-		if (result.size() > 0)
+		List<Oppurtunities> result = oppService.getAll();
+		if (result.isEmpty() == false)
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
 	}
@@ -57,7 +54,6 @@ public class OppurtunityController {
 	@PutMapping(path = "/api/restriction/updateOppurtunity")
 	public ResponseEntity<Oppurtunities> updateOppurtunity(@RequestBody OppurtunityDTO oppDTO) {
 		return new ResponseEntity<>(oppService.updateOppurtunity(oppDTO), HttpStatus.OK);
-
 	}
 
 

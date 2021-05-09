@@ -26,14 +26,7 @@ public class UserController {
 	@Autowired
 	private IJwtTokenProviderService jwtTokenProviderService;
 
-	@PostMapping(path = "/api/restriction/userExists")
-	public ResponseEntity<String> checkUserExists(@RequestBody CheckUserDTO checkUserDTO) {
-
-		if (userService.checkUser(checkUserDTO.getEmail()))
-			return new ResponseEntity<>("Yes User Exists", HttpStatus.OK);
-		return new ResponseEntity<>("User Does'not Exist", HttpStatus.BAD_REQUEST);
-	}
-
+	
 	@PostMapping(path = "/api/allowed/login")
 	public ResponseEntity<LoginResponseDTO> checkUser(@RequestBody UserDTO userDTO) {
 

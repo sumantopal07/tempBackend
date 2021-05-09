@@ -21,8 +21,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
 	@Autowired
     private IJwtTokenProviderService jwtTokenProviderService;
-
-
+ 
     public JwtTokenFilter(IJwtTokenProviderService jwtTokenProviderService) {
     	log.info("[ENTER] [JwtTokenFilter] contructor"+jwtTokenProviderService.hashCode());
         this.jwtTokenProviderService = jwtTokenProviderService;
@@ -30,11 +29,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
     
     static Logger log = LoggerFactory.getLogger(JwtTokenFilter.class);
-
+ 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+    public void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
     	log.info("[ENTER] [JwtTokenFilter] doFilterInternal"+jwtTokenProviderService.hashCode());
     	String token = jwtTokenProviderService.parseToken(httpServletRequest);
+    	System.out.println(token);
+    	System.out.println(httpServletRequest);
+    	
         try {
             if (token != null && jwtTokenProviderService.validateToken(token)) {
             	System.out.println("inside if");
