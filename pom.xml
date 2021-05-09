@@ -16,8 +16,7 @@
 	<description>Find answers for Queries</description>
 	<properties>
 		<java.version>8</java.version>
-	</properties>
-	<properties>
+	
 		<sonar.projectKey>sumantopal07_tempBackend</sonar.projectKey>
 		<sonar.organization>sumantopal07</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
