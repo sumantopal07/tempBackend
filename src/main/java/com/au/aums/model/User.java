@@ -46,11 +46,7 @@ public class User {
 		this.email = email;
 	}
 
-	public User(int userId, String email) {
-		super();
-		this.userId = userId;
-		this.email = email;
-	}
+	
 
 	public User() {
 		

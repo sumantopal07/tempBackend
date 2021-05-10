@@ -34,7 +34,7 @@ public class JwtTokenProviderService implements IJwtTokenProviderService {
 
     @Autowired
     private MyUserDetailsService myUserDetailsService;
-
+ 
     @PostConstruct
     protected void init() {
     	log.info("[ENTER] [JwtTokenProviderService] init");
@@ -50,13 +50,13 @@ public class JwtTokenProviderService implements IJwtTokenProviderService {
 
     @Override
     public String createToken(String userName, Role role) {
-    	//log.info("[ENTER] [JwtTokenProviderService] createToken"+myUserDetailsService.hashCode());
+    	log.info("[ENTER] [JwtTokenProviderService] createToken"+myUserDetailsService.hashCode());
         Claims claims = Jwts.claims().setSubject(userName);
         claims.put("auth", role);
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
-
+        log.info("[EXIT] [JwtTokenProviderService] createToken"+myUserDetailsService.hashCode());
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
@@ -69,6 +69,7 @@ public class JwtTokenProviderService implements IJwtTokenProviderService {
     public Authentication validateUserAndGetAuthentication(String token) {
     	log.info("[ENTER] [JwtTokenProviderService] validateUserAndGetAuthentication"+token);
         UserDetails userDetails = myUserDetailsService.loadUserByUsername(getUsername(token));
+        log.info("exit "+ userDetails);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
@@ -83,9 +84,10 @@ public class JwtTokenProviderService implements IJwtTokenProviderService {
     	log.info("[ENTER] [JwtTokenProviderService] parseToken"+req);
         String bearerToken = req.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+        	log.info("[EXIT] [JwtTokenProviderService] parseToken"+req);
             return bearerToken.substring(7);
         }
-        
+         
         return null;
     }
  
@@ -94,6 +96,7 @@ public class JwtTokenProviderService implements IJwtTokenProviderService {
     	log.info("[ENTER] [JwtTokenProviderService] validateToken"+token);
         try {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            log.info("[EXIT] [JwtTokenProviderService] validateToken"+token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             return false;

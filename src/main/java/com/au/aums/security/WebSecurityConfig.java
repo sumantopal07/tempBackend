@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,9 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-@Component
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter { 
 
 	@Autowired
 	private IJwtTokenProviderService jwtTokenProviderService;
@@ -28,17 +27,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public WebSecurityConfig(IJwtTokenProviderService jwtTokenProviderService) {
 		log.info("[ENTER] [WebSecurity] constructor ${}" + jwtTokenProviderService.hashCode());
 		this.jwtTokenProviderService = jwtTokenProviderService;
-		log.info("[EXIT] [WebSecurity] constructor" + jwtTokenProviderService.hashCode());
+		log.info("[EXIT] [WebSecurity] constructor" + jwtTokenProviderService.hashCode()); 
 	}
 
 	static Logger log = LoggerFactory.getLogger(WebSecurityConfig.class);
-
+ 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		log.info("[ENTER] [WebSecurity] configure http security" + http);
 
 		http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+ 
 		// Entry points
 		http.authorizeRequests().antMatchers("/api/allowed/**").permitAll().antMatchers("/v2/api-docs").permitAll()
 				.antMatchers("/v3/api-docs").permitAll().antMatchers("/swagger-resources/**").permitAll()
@@ -53,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.apply(new JwtTokenFilterConfigurer(jwtTokenProviderService));
 		http.cors();
 		log.info("[EXIT] [WebSecurity] configure http security" + http);
-	}
+	} 
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {

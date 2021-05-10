@@ -21,12 +21,12 @@ public class MyUserDetailsService implements UserDetailsService {
     private UserRepository secureUserRepository;
     static Logger log = LoggerFactory.getLogger(MyUserDetailsService.class);
 
-    public MyUserDetailsService(UserRepository secureUserRepository) {
+    public MyUserDetailsService(UserRepository secureUserRepository) { 
     	log.info("[ENTER] [MyUserDetailsService] contructor");
         this.secureUserRepository = secureUserRepository;
         log.info("[EXIT] [MyUserDetailsService] contructor");
     }
-
+ 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     	log.info("[ENTER] [MyUserDetailsService] loadUserByUsername"+email);
@@ -35,7 +35,7 @@ public class MyUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User '" + email + "' not found");
         }
-        System.out.print(user);
+        log.info("[EXIT] [MyUserDetailsService] loadUserByUsername"+email);
         return org.springframework.security.core.userdetails.User
                 .withUsername(email)
                 .password("1234")

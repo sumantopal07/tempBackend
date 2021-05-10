@@ -41,11 +41,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             if (token != null && jwtTokenProviderService.validateToken(token)) {
             	System.out.println("inside if");
                 Authentication auth = jwtTokenProviderService.validateUserAndGetAuthentication(token);
-                SecurityContextHolder.getContext().setAuthentication(auth);
-            }
-        } catch (Exception ex) {
+                log.info("\n[EXIT]  [JwtTokenFilter] doFilterInternal [auth]\n"+auth.toString());
+                SecurityContextHolder.getContext().setAuthentication(auth); 
+                filterChain.doFilter(httpServletRequest, httpServletResponse);
+                return ;
+            } 
+        } catch (Exception ex) { 
             SecurityContextHolder.clearContext();
-            return;
+            return; 
         }
 
         filterChain.doFilter(httpServletRequest, httpServletResponse);

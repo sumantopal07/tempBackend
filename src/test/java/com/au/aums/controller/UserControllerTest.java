@@ -1,7 +1,7 @@
 package com.au.aums.controller;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import com.au.aums.dao.OppurtunityRepository;
 import com.au.aums.dao.UserRepository;
@@ -40,7 +41,7 @@ class UserControllerTest {
 	UserService userService;
 	
 
-	@MockBean
+	@Autowired
 	IJwtTokenProviderService jwtTokenProviderService;
 	
 	@MockBean
@@ -69,37 +70,41 @@ class UserControllerTest {
     	List<User> u = new ArrayList<User>();
     	u.add(resUser);
 		
-    	when(jwtTokenProviderService.createToken(user.getEmail(), Role.ROLE_ADMIN)).thenReturn("hello");
+    	String  token = jwtTokenProviderService.createToken(user.getEmail(), Role.ROLE_ADMIN);
     	
     	LoginResponseDTO l = new LoginResponseDTO();
     	l.setAccessToken(jwtTokenProviderService.createToken(user.getEmail(), Role.ROLE_ADMIN));
 		l.setEmail(user.getEmail());
 		when(userRepository.findByEmail("sumantopal07@gmail.com")).thenReturn(u);
 		
-        mockMvc.perform(post("/api/allowed/login")
+		MvcResult mvcResult = mockMvc.perform(post("/api/allowed/login")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().isOk()).andReturn(); 
-       
-
-    }
-    
-    
-    @Test
-    public void Failure() throws Exception {
-    	UserDTO user = new UserDTO();
-    	user.setEmail("fakeEmail@gmail.com");
-    	
-    	
-        List <User> emptyList= new ArrayList<User>();
-        
-        when(userRepository.findByEmail("fakeEmail@gmail.com")).thenReturn(null);
-        mockMvc.perform(post("/api/allowed/login")
+		System.out.print(token);
+		mockMvc.perform(get("/api/restriction/client")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(user)))
-                .andExpect(status().is4xxClientError()).andReturn(); 
-
+                .header("Authorization", "Bearer "+token))
+                .andExpect(status().isOk()).andReturn(); 
+ 
     }
+    
+    
+//    @Test
+//    public void Failure() throws Exception {
+//    	UserDTO user = new UserDTO();
+//    	user.setEmail("fakeEmail@gmail.com");
+//    	
+//    	
+//        List <User> emptyList= new ArrayList<User>();
+//        
+//        when(userRepository.findByEmail("fakeEmail@gmail.com")).thenReturn(null);
+//        mockMvc.perform(post("/api/allowed/login")
+//                .contentType("application/json")
+//                .content(objectMapper.writeValueAsString(user)))
+//                .andExpect(status().is4xxClientError()).andReturn(); 
+//
+//    }
 
 	
 

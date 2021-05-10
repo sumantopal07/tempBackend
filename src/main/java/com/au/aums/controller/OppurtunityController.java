@@ -24,6 +24,7 @@ import com.au.aums.service.OppurtunityService;
 import com.au.aums.service.UserService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class OppurtunityController {
 
 	@Autowired
