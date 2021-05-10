@@ -34,12 +34,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     public void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
     	log.info("[ENTER] [JwtTokenFilter] doFilterInternal"+jwtTokenProviderService.hashCode());
     	String token = jwtTokenProviderService.parseToken(httpServletRequest);
-    	System.out.println(token);
-    	System.out.println(httpServletRequest);
+    	
     	
         try {
             if (token != null && jwtTokenProviderService.validateToken(token)) {
-            	System.out.println("inside if");
                 Authentication auth = jwtTokenProviderService.validateUserAndGetAuthentication(token);
                 log.info("\n[EXIT]  [JwtTokenFilter] doFilterInternal [auth]\n"+auth.toString());
                 SecurityContextHolder.getContext().setAuthentication(auth); 

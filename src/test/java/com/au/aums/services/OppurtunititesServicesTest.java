@@ -46,7 +46,7 @@ public class OppurtunititesServicesTest {
 	@MockBean
 	private UserRepository userRepository;
 
-	static Logger log = LoggerFactory.getLogger(TrendsServicesTest.class);
+	static Logger log = LoggerFactory.getLogger(OppurtunititesServicesTest.class);
 
 	@Test
 	public void addOppurtunity() throws Exception {
