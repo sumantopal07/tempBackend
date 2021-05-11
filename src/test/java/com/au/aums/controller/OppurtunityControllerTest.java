@@ -117,6 +117,7 @@ class OppurtunityControllerTest {
 				.perform(put("/api/restriction/updateOppurtunity").contentType("application/json")
 						.content(objectMapper.writeValueAsString(oppDTO)))
 				.andExpect(status().isOk()).andReturn();
+		//System.out.println(mvcResultClient.getResponse());
 
 	}
 

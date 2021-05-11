@@ -81,13 +81,14 @@ class UserControllerTest {
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().isOk()).andReturn(); 
-		System.out.print(token);
+		
 		mockMvc.perform(get("/api/restriction/client")
                 .contentType("application/json")
                 .header("Authorization", "Bearer "+token))
                 .andExpect(status().isOk()).andReturn(); 
  
     }
+    
     
     
 //    @Test
