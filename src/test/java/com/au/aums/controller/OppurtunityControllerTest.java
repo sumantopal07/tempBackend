@@ -55,7 +55,7 @@ class OppurtunityControllerTest {
 	@MockBean
 	private OppurtunityRepository oppRepository;
 
-	static Logger log = LoggerFactory.getLogger(UserControllerTest.class);
+	static Logger log = LoggerFactory.getLogger(OppurtunityControllerTest.class);
 
 	@Test
 	public void getOppurtunitiesWhenOk() throws Exception {

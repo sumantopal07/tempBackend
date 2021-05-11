@@ -37,7 +37,6 @@ public class UserController {
 		LoginResponseDTO l = new LoginResponseDTO();
 		l.setAccessToken(jwtTokenProviderService.createToken(user.getEmail(), Role.ROLE_ADMIN));
 		l.setEmail(user.getEmail());
-		System.out.println(l);
 		return new ResponseEntity<>(l, HttpStatus.OK);
 
 	} 

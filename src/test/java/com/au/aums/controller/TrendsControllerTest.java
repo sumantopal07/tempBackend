@@ -48,7 +48,7 @@ class TrendsControllerTest {
 	@MockBean
 	private OppurtunityRepository opp;
 
-	static Logger log = LoggerFactory.getLogger(UserControllerTest.class);
+	static Logger log = LoggerFactory.getLogger(TrendsControllerTest.class);
 
 	@Test
 	public void Trends() throws Exception {
