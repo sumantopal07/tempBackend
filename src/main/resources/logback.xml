@@ -13,11 +13,8 @@
          <pattern>[%d{yyyy-MM-dd'T'HH:mm:ss.sss'Z'}] [%C] [%t] [%L] [%-5p] %m%n</pattern>
       </encoder>
    </appender>
-   <logger name="com.au.aums" level="DEBUG">
+   <logger name="com.au.aums">
    		<appender-ref ref = "FILE"/>
       <appender-ref ref = "STDOUT"/>
    </logger>
-   <root level = "DEBUG">
-      <appender-ref ref = "STDOUT"/> 
-   </root>
 </configuration>
